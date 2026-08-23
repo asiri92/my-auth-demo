@@ -1,0 +1,12 @@
+# .NET (api/)
+api/bin/
+api/obj/
+api/.vs/
+api/appsettings.Development.json
+
+# Angular (client/)
+client/node_modules/
+client/dist/
+client/.angular/
+client/src/environments/environment.ts
+client/src/environments/environment.development.ts

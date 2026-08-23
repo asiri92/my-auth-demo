@@ -1,0 +1,23 @@
+<h2>Weather Forecast</h2>
+<p *ngIf="error" style="color: red">{{ error }}</p>
+
+<table *ngIf="forecasts.length">
+  <thead>
+    <tr><th>Date</th><th>Temp (C)</th><th>Summary</th></tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let f of forecasts">
+      <td>{{ f.date }}</td>
+      <td>{{ f.temperatureC }}</td>
+      <td>{{ f.summary }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<button *ngIf="isAdmin" (click)="callAdminEndpoint()">Admin: Load Sensitive Data</button>
+<p *ngIf="!isAdmin"><em>Admin controls hidden — you are not an Admin.</em></p>
+
+<p *ngIf="adminData">{{ adminData | json }}</p>
+<p *ngIf="adminError" style="color: red">{{ adminError }}</p>
