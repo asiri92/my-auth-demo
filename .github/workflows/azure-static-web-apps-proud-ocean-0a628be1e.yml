@@ -23,6 +23,23 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - name: Generate environment.ts
+        run: |
+          cat > client/src/environments/environment.ts << EOF
+          export const environment = {
+            production: true,
+            msalConfig: {
+              clientId: '${{ secrets.SPA_CLIENT_ID }}',
+              authority: 'https://login.microsoftonline.com/${{ secrets.TENANT_ID }}',
+              redirectUri: 'https://proud-ocean-0a628be1e.7.azurestaticapps.net',
+              postLogoutRedirectUri: 'https://proud-ocean-0a628be1e.7.azurestaticapps.net'
+            },
+            apiConfig: {
+              endpoint: '${{ secrets.API_ENDPOINT }}',
+              scope: 'api://${{ secrets.API_CLIENT_ID }}/access_as_user'
+            }
+          };
+          EOF
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
