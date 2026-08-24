@@ -17,11 +17,16 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddCors(options =>
 {
+
+    var allowedOrigins = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>() ?? Array.Empty<string>();
+
     options.AddPolicy("AngularDev", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy.WithOrigins(allowedOrigins)
+              .WithMethods("GET", "POST")
+              .WithHeaders("Authorization", "Content-Type");
     });
 });
 
